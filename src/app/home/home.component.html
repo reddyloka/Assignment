@@ -7,4 +7,5 @@
         - <a (click)="deleteUser(user.id)" class="text-danger">Delete</a>
     </li>
 </ul>
+<p *ngIf="currentUser['role']=='auditor'"><a [routerLink]="['/audits']">Audits</a></p>
 <p><a [routerLink]="['/login']">Logout</a></p>

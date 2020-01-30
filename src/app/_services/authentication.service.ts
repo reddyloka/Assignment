@@ -11,8 +11,10 @@ export class AuthenticationService {
             .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
+                    console.log("user",user);
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
+                    localStorage.setItem('role',user.role);
                 }
 
                 return user;
@@ -20,7 +22,17 @@ export class AuthenticationService {
     }
 
     logout() {
-        // remove user from local storage to log user out
+        let date=new Date();
+    let user= JSON.parse(localStorage.getItem('currentUser'));
+    console.log("logout",user,date)
+    if(user&&user.currentSession){
+        this.http.post<any>(`${config.apiUrl}/users/logoutTime`, { _id:user.currentSession,logoutTime:date })
+        .pipe(map(user => user)).subscribe((res)=>{
+console.log("updated",res)
+        });
+    }
+   
+            // remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
 }

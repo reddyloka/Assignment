@@ -10,6 +10,9 @@ export class UserService {
     getAll() {
         return this.http.get<User[]>(`${config.apiUrl}/users`);
     }
+    getAllAudits(id:number) {
+        return this.http.get<User[]>(`${config.apiUrl}/users/audits/`+id);
+    }
 
     getById(id: number) {
         return this.http.get(`${config.apiUrl}/users/` + id);

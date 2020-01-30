@@ -1,0 +1,19 @@
+<table>
+    <tr>
+        <th>username</th>
+        <th>role</th>
+        <th>login Time logout Time</th>
+    </tr>
+    <tr *ngFor="let user of audits">
+        <td>{{user.username}}</td>
+        <td>{{user.role}}</td>
+        <td>
+    <tr *ngFor="let activity of user.activity">
+        <td> {{activity.loginTime | date:'medium'}}</td>
+        <td> {{activity.logoutTime | date:'medium'}}</td>
+    </tr>
+    </td>
+    </tr>
+</table>
+
+<p><a [routerLink]="['/']">dashboard</a></p>
