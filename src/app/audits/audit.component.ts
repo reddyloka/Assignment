@@ -10,9 +10,8 @@ export class AuditComponent implements OnInit {
     currentUser: User;
     role:string="";
     audits:User[]=[];
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,private userService: UserService) {
+    p:Number=1;
+    constructor(private router: Router,private userService: UserService) {
             this.currentUser = localStorage.getItem('currentUser')?JSON.parse(localStorage.getItem('currentUser')):{};
             this.role=this.currentUser['role'];
         }
@@ -23,8 +22,7 @@ export class AuditComponent implements OnInit {
 
         private loadAllAudits() {
             this.userService.getAllAudits(this.currentUser['_id']).pipe(first()).subscribe(audits => { 
-                this.audits = audits; 
-                console.log(this.audits)
+                this.audits = audits;
             });
         }
     }

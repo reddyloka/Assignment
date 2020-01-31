@@ -1,19 +1,27 @@
-<table>
-    <tr>
-        <th>username</th>
-        <th>role</th>
-        <th>login Time logout Time</th>
-    </tr>
-    <tr *ngFor="let user of audits">
-        <td>{{user.username}}</td>
-        <td>{{user.role}}</td>
-        <td>
-    <tr *ngFor="let activity of user.activity">
-        <td> {{activity.loginTime | date:'medium'}}</td>
-        <td> {{activity.logoutTime | date:'medium'}}</td>
-    </tr>
-    </td>
-    </tr>
-</table>
 
-<p><a [routerLink]="['/']">dashboard</a></p>
+<img *ngIf="!audits.length" 
+    src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+<div *ngIf="audits.length">
+    <table>
+        <tr>
+            <th>username</th>
+            <th>role</th>
+            <th>login Time and logout Time</th>
+        </tr>
+        <tr *ngFor="let user of audits | paginate: { itemsPerPage: 3, currentPage: p }">
+            <td>{{user.username}}</td>
+            <td>{{user.role}}</td>
+            <td>
+        <tr *ngFor="let activity of user.activity ">
+            <td> {{activity.loginTime | date:'medium'}}</td>
+            <td> {{activity.logoutTime | date:'medium'}}</td>
+        </tr>
+        </td>
+        </tr>
+        <br />
+
+    </table>
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+    <p><a [routerLink]="['/']">dashboard</a></p>
+</div>
